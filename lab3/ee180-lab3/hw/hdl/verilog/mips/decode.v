@@ -207,12 +207,12 @@ module decode (
     // for immediate operations, use Imm
     // otherwise use rt
 
-    assign alu_op_y = (use_imm) ? imm : rt_data;	//Y will be either RT data or immediate 
-    assign reg_write_addr = (use_imm) ? rt_addr : rd_addr;	//Register write address will either be RT or RD 
+    assign alu_op_y = (use_imm) ? ( (op == `JAL) ? pc + 32'd8 : imm ) : rt_data;	//Y will be either RT data or immediate 
+    assign reg_write_addr = (use_imm) ? ( (op == `JAL) ? `RA : rt_addr ) : rd_addr;	//Register write address will either be RT or RD 
 
     // determine when to write back to a register (any operation that isn't an
     // unconditional store, non-linking branch, or non-linking jump)
-    assign reg_we = ~|{(mem_we & (op != `SC)), isJ, isBGEZNL, isBGTZ, isBLEZ, isBLTZNL, isBNE, isBEQ};		//WRITES BACK TO REGISTER
+    assign reg_we = ~|{(mem_we & (op != `SC)), isJ, (op == `SPECIAL && funct == `JR), isBGEZNL, isBGTZ, isBLEZ, isBLTZNL, isBNE, isBEQ};		//WRITES BACK TO REGISTER
 
     // determine whether a register write is conditional
     assign movn = &{op == `SPECIAL, funct == `MOVN};
@@ -246,8 +246,8 @@ module decode (
     assign jump_branch = |{isBEQ & isEqual,
                            isBNE & ~isEqual, isBGEZ && (rs_data >= 0)};
 
-    assign jump_target = isJ;
-    assign jump_reg = (op == `SPECIAL && funct == `JR);
+    assign jump_target = |{isJ, (op == `JAL)};
+    assign jump_reg = |{(op == `SPECIAL && funct == `JR), (op == `SPECIAL && funct == `JALR)};
    // assign jump_reg = 1'b0;
 
 endmodule

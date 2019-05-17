@@ -1,12 +1,12 @@
 ###############################################################################
-# File         : jr.S
+# File         : j.S
 # Project      : EE180 Lab 2: MIPS
 #
 # Standards/Formatting:
 #   MIPS gas, soft tab, 80 column
 #
 # Description:
-#   Test the functionality of the 'jr' instruction.
+#   Test the functionality of the 'j' instruction.
 #
 ###############################################################################
 
@@ -19,17 +19,12 @@
 boot:
     lui     $s0, 0x8002         # Load the base address of the status/test registers
     ori     $s1, $0, 1          # Prepare the 'done' status
-    ori     $t0, $0, 0x0048 
-    nop
-    nop
-    nop
-    jr      $t0
-    nop
-    nop
-    nop
     ori     $v0, $0, 0          # The test result starts as a failure
-
-$finish:
+    jal     $target
+    nop
+    nop
+    nop
+    ori     $v0, $0, 1          # The test result starts as a success
     nop
     nop
     nop
@@ -41,7 +36,7 @@ $done:
     nop
 
 $target:
-    ori     $v0, $0, 1          # Set the result to pass
-    j       $finish
-
+    addi    $t0, $0, 4
+    jr      $ra
+    nop
     .end boot
