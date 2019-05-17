@@ -1,5 +1,5 @@
 $date
-	Fri May 17 10:57:35 2019
+	Fri May 17 16:13:46 2019
 $end
 $version
 	Icarus Verilog
@@ -1943,6 +1943,9 @@ b1111011100 1
 11#
 07#
 1*#
+b0 y
+b0 q"
+b0 L#
 b0 T"
 b0 9#
 b0 Y#

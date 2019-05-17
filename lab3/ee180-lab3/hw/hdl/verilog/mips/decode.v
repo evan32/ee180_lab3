@@ -207,7 +207,7 @@ module decode (
     // for immediate operations, use Imm
     // otherwise use rt
 
-    assign alu_op_y = (use_imm) ? ( (op == `JAL) ? pc + 32'd8 : imm ) : rt_data;	//Y will be either RT data or immediate 
+    assign alu_op_y = (use_imm) ? ( (op == `JAL) ? pc + 32'd8 : imm ) : ( (op == `SPECIAL && funct == `JALR) ?  pc + 32'd8 : rt_data);	//Y will be either RT data or immediate 
     assign reg_write_addr = (use_imm) ? ( (op == `JAL) ? `RA : rt_addr ) : rd_addr;	//Register write address will either be RT or RD 
 
     // determine when to write back to a register (any operation that isn't an
@@ -222,7 +222,7 @@ module decode (
 // Memory control
 //******************************************************************************
     assign mem_we = |{op == `SW, op == `SB, op == `SC};    // write to memory
-    assign mem_read = |{op == `LW, op == `LB, op == `LBU, op == `LL, (op == `SPECIAL && funct == `JR), (op == `SPECIAL && funct == `JALR)};       // use memory data for writing to a register
+    assign mem_read = |{op == `LW, op == `LB, op == `LBU, op == `LL, (op == `SPECIAL && funct == `JR)};       // use memory data for writing to a register
     assign mem_byte = |{op == `SB, op == `LB, op == `LBU};    // memory operations use only one byte
     assign mem_signextend = ~|{op == `LBU};     // sign extend sub-word memory reads
 
