@@ -69,6 +69,7 @@ module decode (
     wire isBGEZAL = (op == `BLTZ_GEZ) & (rt_addr == `BGEZAL);
     wire isBGTZ   = (op == `BGTZ) & (rt_addr == 5'b00000);
     wire isBLEZ   = (op == `BLEZ) & (rt_addr == 5'b00000);
+    wire isBGEZ   = (op == `BGEZ) & (rt_addr == 5'b00001);
     wire isBLTZNL = (op == `BLTZ_GEZ) & (rt_addr == `BLTZ);
     wire isBLTZAL = (op == `BLTZ_GEZ) & (rt_addr == `BLTZAL);
     wire isBNE    = (op == `BNE);
@@ -139,6 +140,8 @@ module decode (
             // compare rs data to 0, only care about 1 operand
             {`BGTZ, `DC6}:      alu_opcode = `ALU_PASSX;
             {`BLEZ, `DC6}:      alu_opcode = `ALU_PASSX;
+            {`BGEZ, `DC6}:      alu_opcode = `ALU_PASSX;
+
             {`BLTZ_GEZ, `DC6}: begin
                 if (isBranchLink)
                     alu_opcode = `ALU_PASSY; // pass link address for mem stage
@@ -241,7 +244,7 @@ module decode (
     wire isEqual = rs_data == rt_data;
 
     assign jump_branch = |{isBEQ & isEqual,
-                           isBNE & ~isEqual};
+                           isBNE & ~isEqual, isBGEZ && (rs_data >= 0)};
 
     assign jump_target = isJ;
     assign jump_reg = (op == `SPECIAL && funct == `JR);
