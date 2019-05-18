@@ -6,7 +6,7 @@
 #   MIPS gas, soft tab, 80 column
 #
 # Description:
-#   Test the functionality of the 'jr' instruction.
+#   Test the functionality of the 'jalr' instruction.
 #
 ###############################################################################
 

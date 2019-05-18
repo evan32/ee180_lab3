@@ -6,7 +6,7 @@
 #   MIPS gas, soft tab, 80 column
 #
 # Description:
-#   Test the functionality of the 'lw' instruction.
+#   Test the functionality of the 'll_sc' instruction.
 #
 ###############################################################################
 
@@ -26,6 +26,23 @@ boot:
     nop
     nop
     sw      $0, 0($t0)
+    ori     $t1, $0, 1
+    nop
+    nop
+    nop
+    sw      $t1, 0($t0)
+    nop
+    nop
+    nop
+    ll      $t2, 0($t0)
+    nop 
+    nop
+    nop
+    addi    $t2, $t2, 4
+    nop
+    nop
+    nop
+    sw      $t1, 0($t0)     
     nop
     nop
     nop
@@ -33,20 +50,15 @@ boot:
     nop
     nop
     nop
-    addi    $t3, $0, 5
-    sw      $t2, 0($t3)     
+    addi    $t2, $t2, 4
     nop
     nop
     nop
-    sc      $s1, 0($t0)
+    sc      $t2, 0($t0)
     nop
     nop
     nop
-    lw      $t1, 0($t0)
-    nop
-    nop
-    nop
-    sw      $t1, 4($s0)         # Set the test result
+    sw      $t2, 4($s0)         # Set the test result
     sw      $s1, 0($s0)         # Set 'done'
 
 $done:
