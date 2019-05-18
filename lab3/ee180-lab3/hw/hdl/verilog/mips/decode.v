@@ -116,6 +116,9 @@ module decode (
             {`BEQ, `DC6}:       alu_opcode = `ALU_SUBU;
             {`BNE, `DC6}:       alu_opcode = `ALU_SUBU;
             {`XORI, `DC6}:      alu_opcode = `ALU_XOR;
+	    {`LL, `DC6}:        alu_opcode = `ALU_ADD;
+            {`SC, `DC6}:        alu_opcode = `ALU_ADD;
+
 
 	    {`SPECIAL, `ADD}:   alu_opcode = `ALU_ADD;
             {`SPECIAL, `ADDU}:  alu_opcode = `ALU_ADDU;
@@ -232,10 +235,10 @@ module decode (
     assign mem_sc_id = (op == `SC);
 
     // 'atomic_id' is high when a load-linked has not been followed by a store.
-    assign atomic_id = 1'b0;
+    assign atomic_id = |{op == `SW, op == `SB, op == `SC} ? 1'b0 : ( (op == `LL) ? 1'b1 : atomic_ex ) ;
 
     // 'mem_sc_mask_id' is high when a store conditional should not store
-    assign mem_sc_mask_id = 1'b0;
+    assign mem_sc_mask_id = ~(|{ ((op == `SC) && atomic_ex), op == `SW, op == `SB});
 
 //******************************************************************************
 // Branch resolution
