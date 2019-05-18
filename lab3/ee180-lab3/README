@@ -1,1 +1,82 @@
 TODO: Write your lab report here. See the handout for more information.
+
+Lab 3 Processor Lab Report:
+
+Names: Erik Van and Jose Luquin
+
+List of Instructions Implemented: 
+ADD: 
+Modifications in alu.v: Switch the alu_op_x and the alu_op_y to alu_op_x_signed and alu_op_y_signed.
+
+BEQ: 
+Modifications in mips_cpu.v: Add branch_id as an input into the instruction fetch stage 
+Modifications in instruction_fetch.v: Added jump_branch as in input and changed branch targer to pc+4+SignExt({imm,00}) based on jump_branch
+
+BGEZ:
+Modifications in decode.v: add additional conditions to jump_branch wire
+
+BGTZ:
+Modifications in decode.v: add additional conditions to jump_branch wire
+
+BLEZ:
+Modifications in decode.v: add additional conditions to jump_branch wire
+
+BLTZ:
+Modifications in decode.v: add additional conditions to jump_branch wire
+
+BNE:
+Modifications in mips_cpu.v: add branch_id as an input into the instruction fetch stage 
+Modifications in instruction_fetch.v: added jump_branch as in input and changed branch targer to pc+4+SignExt({imm,00}) based on jump_branch
+
+JAL:
+Modifications in decode.v: add additional conditonals to jump_target, add additional conditionals to reg_write_addr, add additional conditonals to alu_op_y
+
+JALR:
+Modifications in decode.V: add additional conditionals to jump_reg
+
+JR: 
+Modifications in mips_cpu.v: add additional input wires into instruction stage
+Modifications in instruction.v: set jr_pc
+Modifications in decode.v: added additional conditonals to jump_reg
+
+LB: 
+Modifications in mips_cpu.v: Add d and q values to read_mem flip flops
+Modifications in decode.v: Set readmem value
+
+LBU:
+Modifications in mips_cpu.v: Add d and q values to read_mem flip flops
+Modifications in decode.v: Set readmem value
+
+LL:
+Modifications in mips_cpu.v: add additonal conditionals to atomic_id
+
+MUL: 
+Modifications in decode.v: add mul to case statement for op codes
+Modifications in alu.v: added mul to case statement for executions
+
+NOR:
+Modifications in decode.v: add nor to case statement for op codes
+Modifications in alu.v: added nor to case statement for executions
+
+ORI: 
+Modifications in decode.v: added conditional to immediate sign extensions
+
+SRA: 
+Modifications in decode.v: add shift right arith to case statement for op codes
+Modifications in alu.v: added shift right arith to case statement for executions
+
+SUB:
+Modifications in alu.v: Switch the alu_op_x and the alu_op_y to alu_op_x_signed and alu_op_y_signed.
+
+XOR:
+Modifications in decode.v: add xor to case statement for op codes
+Modifications in alu.v: added xor to case statement for executions
+
+XORI:
+Modifications in decode.v: add xori to case statement for op codes
+
+
+
+
+
+
