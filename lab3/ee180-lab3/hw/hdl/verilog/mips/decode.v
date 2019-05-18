@@ -245,9 +245,10 @@ module decode (
 //******************************************************************************
 
     wire isEqual = rs_data == rt_data;
+    wire signed [31:0] rs_data_signed = rs_data;
 
     assign jump_branch = |{isBEQ & isEqual,
-                           isBNE & ~isEqual, isBGEZ && (rs_data >= 0)};
+                           isBNE & ~isEqual, isBGEZ && (rs_data >= 0), isBGTZ && (rs_data > 0), isBLEZ && (rs_data_signed <= 0) };
 
     assign jump_target = |{isJ, (op == `JAL)};
     assign jump_reg = |{(op == `SPECIAL && funct == `JR), (op == `SPECIAL && funct == `JALR)};
