@@ -77,10 +77,11 @@ XORI:
 Modifications in decode.v: add xori to case statement for op codes
 
 HAZARDS/FORWARDING: 
-Modifications in decode.v: added MEM hazard checking for rt register (given in the starter code was MEM hazard 
-	checking for the rs register); logic was repeated to also check for EX hazards for both rs and rt 
-	registers. The logic use to check for these hazards was taken from Lecture 9. Also implemented was 
-	checking for double data hazards - again, using logic previously provided on lecture slides (Lecture 9). 
+Modifications in decode.v: we noticed that forwarding and stalling was partly implemented. 
+The MEM RS hazards were already in the starter code. Thus, we added MEM hazard checking for rt register. 
+Similar logic was repeated to also check for EX hazards for both rs and rt registers. 
+The logic use to check for these hazards was taken from Lecture 9. Also implemented was checking for double data hazards - again, 
+using logic previously provided on lecture slides (Lecture 9). 
 
 
 
