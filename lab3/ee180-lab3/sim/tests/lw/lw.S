@@ -25,17 +25,17 @@ boot:
     nop
     nop
     nop
-    sw      $0, 0($t0)
-    ori     $t1, $0, 1
+    ori     $t3, $0, 1
     nop
     nop
     nop
-    sw      $t1, 0($t0)
+    sw      $t3, 0($t0)
     nop
     nop
     nop
-    lw      $t2, 0($t0)
-    nop
+    lw      $t1, 0($t0)
+    add     $t2, $0, $t1
+    nop  
     nop
     nop
     sw      $t2, 4($s0)         # Set the test result
