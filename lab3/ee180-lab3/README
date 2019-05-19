@@ -5,6 +5,7 @@ Lab 3 Processor Lab Report:
 Names: Erik Van and Jose Luquin
 
 List of Instructions Implemented: 
+
 ADD: 
 Modifications in alu.v: Switch the alu_op_x and the alu_op_y to alu_op_x_signed and alu_op_y_signed.
 
@@ -75,7 +76,11 @@ Modifications in alu.v: added xor to case statement for executions
 XORI:
 Modifications in decode.v: add xori to case statement for op codes
 
-
+HAZARDS/FORWARDING: 
+Modifications in decode.v: added MEM hazard checking for rt register (given in the starter code was MEM hazard 
+	checking for the rs register); logic was repeated to also check for EX hazards for both rs and rt 
+	registers. The logic use to check for these hazards was taken from Lecture 9. Also implemented was 
+	checking for double data hazards - again, using logic previously provided on lecture slides (Lecture 9). 
 
 
 
