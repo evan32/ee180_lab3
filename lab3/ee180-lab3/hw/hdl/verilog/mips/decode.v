@@ -178,8 +178,8 @@ module decode (
 // forwarding and stalling logic
 //******************************************************************************
 
-    wire forward_rs_mem = &{rs_addr == reg_write_addr_mem, rs_addr != `ZERO, reg_we_mem};   //RS Memory Forward
-    wire forward_rt_mem = &{rt_addr == reg_write_addr_mem, rt_addr != `ZERO, reg_we_mem};   //ADDED: RT Memory Forward
+    wire forward_rs_mem = &{rs_addr == reg_write_addr_mem, !(reg_we_ex && (rs_addr != `ZERO) && (rs_addr == reg_write_addr_ex)), rs_addr != `ZERO, reg_we_mem};   //RS Memory Forward
+    wire forward_rt_mem = &{rt_addr == reg_write_addr_mem, !(reg_we_ex && (rt_addr != `ZERO) && (rt_addr == reg_write_addr_ex)),  rt_addr != `ZERO, reg_we_mem};   //ADDED: RT Memory Forward
 
     wire forward_rs_ex = &{rs_addr == reg_write_addr_ex, rs_addr != `ZERO, reg_we_ex};   //ADDED: RS EX Forward
     wire forward_rt_ex = &{rt_addr == reg_write_addr_ex, rt_addr != `ZERO, reg_we_ex};   //ADDED: RT EX Forward

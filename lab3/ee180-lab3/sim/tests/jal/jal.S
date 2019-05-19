@@ -21,13 +21,7 @@ boot:
     ori     $s1, $0, 1          # Prepare the 'done' status
     ori     $v0, $0, 0          # The test result starts as a failure
     jal     $target
-    nop
-    nop
-    nop
     ori     $v0, $0, 1          # The test result starts as a success
-    nop
-    nop
-    nop
     sw      $v0, 4($s0)
     sw      $s1, 0($s0)
 

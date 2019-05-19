@@ -19,45 +19,15 @@
 boot:
     lui     $s0, 0x8002         # Load the base address of the status/test registers
     ori     $s1, $0, 1          # Prepare the 'done' status
-    lui     $t0, 0              # Load some valid address 0x00003210 to register $t0
-    nop
-    ori     $t0, $t0, 0x3210
-    nop
-    nop
-    nop
-    sw      $0, 0($t0)
-    ori     $t1, $0, 1
-    nop
-    nop
-    nop
+    lui     $t0, 0              # Load some valid address 0x00003012 to register $t0
+    ori     $t0, $t0, 0x3012
+    ori     $t2, $t2, 1
+    addi    $t1, $0, 0
     sw      $t1, 0($t0)
-    nop
-    nop
-    nop
-    ll      $t2, 0($t0)
-    nop 
-    nop
-    nop
-    addi    $t2, $t2, 4
-    nop
-    nop
-    nop
-    sw      $t1, 0($t0)     
-    nop
-    nop
-    nop
-    ll      $t2, 0($t0)
-    nop
-    nop
-    nop
-    addi    $t2, $t2, 4
-    nop
-    nop
-    nop
+    ll      $t4, 0($t0)
+    addi    $t4, $t4, 1
+    sw      $t4, 0($t0)
     sc      $t2, 0($t0)
-    nop
-    nop
-    nop
     sw      $t2, 4($s0)         # Set the test result
     sw      $s1, 0($s0)         # Set 'done'
 
