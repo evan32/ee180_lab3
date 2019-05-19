@@ -19,24 +19,13 @@
 boot:
     lui     $s0, 0x8002         # Load the base address of the status/test registers
     ori     $s1, $0, 1          # Prepare the 'done' status
-    ori     $t0, $0, 0x005C 
-    nop
-    nop
-    nop
+    ori     $t0, $0, 0x002C 
     ori     $v0, $0, 0          # The test result starts as a failure
-    nop
-    nop
-    nop
     jalr    $t1, $t0
-    nop
-    nop
     nop
    
 $finish:
     ori     $v0, $0, 1          # Set the result to pass
-    nop
-    nop
-    nop
     sw      $v0, 4($s0)
     sw      $s1, 0($s0)
 
@@ -46,8 +35,6 @@ $done:
 
 $target:
     addi    $t5, $0, 6
-    nop
-    nop
     j       $t1
     nop
 

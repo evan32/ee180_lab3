@@ -19,7 +19,7 @@
 boot:
     lui     $s0, 0x8002         # Load the base address of the status/test registers
     ori     $s1, $0, 1          # Prepare the 'done' status
-    ori     $t0, $0, 0x0048 
+    ori     $t0, $0, 0x0024 
     jr      $t0
     ori     $v0, $0, 0          # The test result starts as a failure
 
